@@ -20,6 +20,8 @@ do
 
     read num
 
+    output = output_file.txt
+
     case "$num" in
         1)
             #create code
