@@ -6,7 +6,20 @@
 # search and display a specific employee details,
 # sort the record and list the complete record.
 
-while [ 1 ]
+function create_record(){
+    read -p "Enter Employee Name: " ename
+    read -p "Enter Employee Number: " eno
+    read -p "Enter Telephone Number: " tno
+
+    if grep -q "^.*:$eno:.*$" employee_records.txt; then
+        echo "Employee number $eno already exists. Cannot create duplicate records."
+    else 
+        echo "$ename:$eno:$tno" >> employee_records.txt
+        echo "Employee Record created successfully!"
+    fi
+}
+
+while true;
 do
     clear
     echo "Press 1 to create a record"
@@ -16,36 +29,35 @@ do
     echo "Press 5 to sort records"
     echo "Press 6 to list all record"
     echo "Press 7 to exit"
-    echo "Enter your choice (1-7):"
+    read -p "Enter your choice (1-7): " choice
 
-    read num
-
-    output = output_file.txt
-
-    case "$num" in
+    case $choice in
         1)
-            #create code
+            create_record
             ;;
         2)
-            #create code
+            delete_record
             ;;
         3)
-            #create code
+            search_record
             ;;
         4)
-            #create code
+            display_employee_details
             ;;
         5)
-            #create code
+            sort_records
             ;;
         6)
-            #create code
+            list_records
             ;;
         7)
-            break
+            echo "Exiting..."
+            exit 0;
             ;;
         *)
             echo "Invalid choice. Please enter a valid option (1-7)."
             ;;
     esac
+
+    echo
 done
