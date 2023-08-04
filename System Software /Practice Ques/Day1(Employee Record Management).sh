@@ -19,6 +19,13 @@ function create_record(){
     fi
 }
 
+function delete_record(){
+    read -p "Enter the Employee Number to delete:" eno
+    grep -v "^.*:$eno:.*$" employee_records.txt > temp.txt
+    mv temp.txt employee_records.txt
+    echo "Employee Record deleted successfully!!!"
+}
+
 while true;
 do
     clear
