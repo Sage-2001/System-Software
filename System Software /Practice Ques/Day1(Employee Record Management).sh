@@ -32,6 +32,10 @@ function search_record(){
     grep "^.*:$eno:.*$" employee_records.txt
 }
 
+function display_employee_details(){
+    search_record
+}
+
 while true;
 do
     echo "Press 1 to create a record"
