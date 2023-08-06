@@ -26,9 +26,14 @@ function delete_record(){
     echo "Employee Record deleted successfully!!!"
 }
 
+function search_record(){
+    read -p "Enter the Employee number to be searched:" eno
+    echo
+    grep "^.*:$eno:.*$" employee_records.txt
+}
+
 while true;
 do
-    clear
     echo "Press 1 to create a record"
     echo "Press 2 to delete record"
     echo "Press 3 to search record"
