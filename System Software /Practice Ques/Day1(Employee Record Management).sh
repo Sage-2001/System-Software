@@ -36,6 +36,15 @@ function display_employee_details(){
     search_record
 }
 
+function sort_records(){
+    sort -t ':' -k2n employee_records.txt > temp.txt
+    mv temp.txt employee_records.txt
+    echo "Record Sorted Successfully!!!"
+}
+
+function list_records(){
+    sed 's/:/ /g' employee_records.txt
+}
 while true;
 do
     echo "Press 1 to create a record"
