@@ -8,7 +8,7 @@ int main()
 {
     
     const char *source = "./1";
-    const char *HardLInk = "./HardLink";
-    int x = link(source,HardLInk);
+    const char *Hard = "./HardLink";
+    int x = link(source,Hard);
     return 0;
 }
