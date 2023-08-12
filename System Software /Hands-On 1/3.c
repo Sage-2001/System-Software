@@ -8,7 +8,7 @@
 
 int main(){
     mode_t mode = S_IRUSR| S_IWUSR| S_IRGRP| S_IROTH;
-    int fd = creat("creat_file",mode);
+    int fd = creat("create_file",mode);
 
     printf("File created with descriptor: %d\n", fd);
     return 0;
