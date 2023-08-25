@@ -44,18 +44,16 @@ int main(){
         return 1;
     }
 
+    printf("Before Write Critical Section\n");
     write_lock(fd);
-    write(fd, "This is a write operation. \n", 28);
+    printf("Inside Write Critical Section\n");
+    char buf[100];
+    printf("Enter content\n");
+    scanf("%[^\n]%*c", buf); 
+    write(fd,buf,20);
     unlock(fd);
 
-    read_lock(fd);
-    char buf[100];
-    ssize_t msg = read(fd,buf,sizeof(buf) -1);
-    if(msg > 0){
-        buf[msg] = '\0';
-        printf("Read content: %s\n",buf);
-    }
-    unlock(fd);
+
     close(fd);
     return 0;
 }
