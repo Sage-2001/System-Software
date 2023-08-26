@@ -44,6 +44,9 @@ int main(){
     printf("Your updated ticket no is %d\n",tno);
     lseek(fd,0,SEEK_SET);
     write(fd,&tno,sizeof(int));
+    char buf[100];
+    printf("Press Enter to exit Critical Section\n");
+    scanf("%[^\n]%*c", buf); 
     unlock(fd);
 
     close(fd);

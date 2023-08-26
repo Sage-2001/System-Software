@@ -38,7 +38,9 @@ int main(){
         return 1;
     }
 
-    printf("What is your Ticket Number?\n");
+    
+    printf("Hello Please wait\n");
+
     write_lock(fd);
     printf("Inside CS\n");
     int tno;
