@@ -5,13 +5,13 @@
 #include <unistd.h>
 
 
-void write_lock(int fd){
+void read_lock(int fd){
     struct flock lock;
-    lock.l_type = F_WRLCK;
+    lock.l_type = F_RDLCK;
     lock.l_whence = SEEK_SET;
     lock.l_start = 0;
     lock.l_len = 0;
-    fcntl(fd, F_SETLKW, &lock);
+    fcntl(fd,F_SETLKW,&lock);
 }
 
 void unlock(int fd){
@@ -39,35 +39,22 @@ int main(){
 
     
     printf("Please wait.\n");
-    write_lock(fd);
+    read_lock(fd);
     printf("Inside Critical Section\n");
     int record_num;
-    printf("Enter the record number to update: ");
-    scanf("%d", &record_num);
-    
+    printf("Enter the record number to see: ");
+    scanf(" %d", &record_num);
     struct Record r1;
     r1.id = record_num;
-
-    printf("Enter a new name: ");
-    scanf("%s", r1.name);
-
     lseek(fd, sizeof(struct Record) * (record_num - 1), SEEK_SET);
-    ssize_t bw = write(fd, &r1, sizeof(struct Record));
-    
-    unlock(fd);
-
-    printf("Updated record successfully\n");
-
-    lseek(fd, 0, SEEK_SET);
-    printf("Records in the file:\n");
-    for (int i = 0; i < 3; i++) {
-        struct Record r;
-        ssize_t br = read(fd, &r, sizeof(struct Record));
-        if (br == sizeof(struct Record)) {
-            printf("Record %d: ID: %d, Name: %s\n", i + 1, r.id, r.name);
-        }
+    ssize_t br = read(fd, &r1, sizeof(struct Record));
+    if (br == sizeof(struct Record)) {
+        printf("Record %d: ID: %d, Name: %s\n", record_num , r1.id, r1.name);
     }
-
+    printf("Enter to exit Critical Section...");
+    getchar(); // Wait for Enter key
+    getchar();
+    unlock(fd);
     close(fd);
     return 0;
 }

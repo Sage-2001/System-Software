@@ -9,15 +9,6 @@
 #include <unistd.h>
 
 
-void write_lock(int fd){
-    struct flock lock;
-    lock.l_type = F_WRLCK;
-    lock.l_whence = SEEK_SET;
-    lock.l_start = 0;
-    lock.l_len = 0;
-    fcntl(fd,F_SETLKW,&lock);
-}
-
 void read_lock(int fd){
     struct flock lock;
     lock.l_type = F_RDLCK;
