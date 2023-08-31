@@ -9,7 +9,7 @@ You can check it out using :ls -li
 -->
 
 <!-- 2 a. 1
-HardLink using Shell command :ln -s 1 SoftLink1
+HardLink using Shell command :ln 1 HardLink1
 You can check it out using :ls -li 
 -->
 
