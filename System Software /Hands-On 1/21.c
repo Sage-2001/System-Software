@@ -5,10 +5,10 @@
 int main()
 {
     if(!fork()){
-        printf("Parent id is %d\n",getpid());
+        printf("Child id is %d\n",getppid());
     }
     else{
-        printf("Child id is %d\n",getppid());
+        printf("Parent id is %d\n",getpid());
     }
     return 0;
 }
