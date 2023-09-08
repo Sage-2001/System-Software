@@ -1,15 +1,15 @@
 // 27. Write a program to execute ls -Rl by the following system calls
 
 // a. execl
-// #include <unistd.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-// int main(){
-//     execl("/bin/ls","ls","-ri",NULL);
-//     perror("execl did not work");
-//     exit(EXIT_FAILURE);
-//     return 0;
-// }
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+int main(){
+    execl("/usr/bin/ls","ls","-ri",NULL);
+    perror("execl did not work");
+    exit(EXIT_FAILURE);
+    return 0;
+}
 
 
 // b. execlp
@@ -51,13 +51,13 @@
 
 
 // e. execvp
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-int main(){
-    char* arr[] = {"ls","-ri",NULL};
-    execvp("/bin/ls",arr);
-    perror("execv did not work");
-    exit(EXIT_FAILURE);
-    return 0;
-}
+// #include <unistd.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// int main(){
+//     char* arr[] = {"ls","-ri",NULL};
+//     execvp("/bin/ls",arr);
+//     perror("execv did not work");
+//     exit(EXIT_FAILURE);
+//     return 0;
+// }
