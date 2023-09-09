@@ -1,7 +1,12 @@
 /*
-Write a program to find the type of a file.
+ ============================================================================
+Name :  Q14.c
+Author : Somya Malgudi
+Description : Write a program to find the type of a file.
 a. Input should be taken from command line.
 b. program should be able to identify any type of a file.
+Date: Aug 23, 2023
+============================================================================	
 */
 
 #include<stdio.h>

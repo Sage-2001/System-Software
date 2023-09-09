@@ -1,3 +1,11 @@
+/*
+ ============================================================================
+Name :  Q30.c
+Author : Somya Malgudi
+Description : Write a program to run a script at a specific time using a Daemon process
+Date: Sep 9, 2023
+============================================================================	
+*/ 
 #include<stdio.h>
 #include<unistd.h>
 #include <stdlib.h>

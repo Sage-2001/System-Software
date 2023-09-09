@@ -1,5 +1,12 @@
-// 29. Write a program to get scheduling policy and modify the scheduling policy (SCHED_FIFO,
-// SCHED_RR).
+/*
+ ============================================================================
+Name :  Q29.c
+Author : Somya Malgudi
+Description : Write a program to get scheduling policy and modify the scheduling policy (SCHED_FIFO,
+SCHED_RR).
+Date: Sep 8, 2023
+============================================================================	
+*/ 
 #include <stdio.h>
 #include <stdlib.h>
 #include <sched.h>

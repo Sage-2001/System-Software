@@ -1,8 +1,15 @@
-/*Write a program to open a file, duplicate the file descriptor and append the file with both the
+/*
+ ============================================================================
+Name :  Q11.c
+Author : Somya Malgudi
+Description : Write a program to open a file, duplicate the file descriptor and append the file with both the
 descriptors and check whether the file is updated properly or not.
 a. use dup
 b. use dup2
-c. use fcntl*/
+c. use fcntl
+Date: Aug 23, 2023
+============================================================================	
+*/
 
 #include<stdio.h>
 #include<unistd.h>

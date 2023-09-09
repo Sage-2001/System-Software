@@ -1,4 +1,11 @@
-// 24. Write a program to create an orphan process.
+/*
+ ============================================================================
+Name :  Q24.c
+Author : Somya Malgudi
+Description : Write a program to create an orphan process.
+Date: Sep 3, 2023
+============================================================================	
+*/
 #include<stdio.h>
 #include<unistd.h>
 #include<sys/wait.h>

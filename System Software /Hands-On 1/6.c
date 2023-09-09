@@ -1,4 +1,12 @@
-/*Write a program to take input from STDIN and display on STDOUT. Use only read/write system calls*/
+/*
+ ============================================================================
+Name :  Q6.c
+Author : Somya Malgudi
+Description : Write a program to take input from STDIN and display on STDOUT. Use only read/write system calls
+Date: Aug 18, 2023
+============================================================================	
+*/
+
 
 #include<stdio.h>
 #include<unistd.h>

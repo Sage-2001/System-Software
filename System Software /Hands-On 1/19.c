@@ -1,4 +1,11 @@
-// 19. Write a program to find out time taken to execute getpid system call. Use time stamp counter.
+/*
+ ============================================================================
+Name :  Q19.c
+Author : Somya Malgudi
+Description : Write a program to find out time taken to execute getpid system call. Use time stamp counter.
+Date: Sep 1, 2023
+============================================================================	
+*/
 #include<stdio.h>
 #include <sys/types.h>
 #include <unistd.h>

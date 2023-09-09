@@ -1,4 +1,11 @@
-// /Write a program to display the environmental variable of the user (use environ)./
+/*
+ ============================================================================
+Name :  Q15.c
+Author : Somya Malgudi
+Description : Write a program to display the environmental variable of the user (use environ).
+Date: Aug 23, 2023
+============================================================================	
+*/
 
 #include<stdio.h>
 #include<unistd.h>

@@ -1,5 +1,13 @@
-// 25. Write a program to create three child processes. The parent should wait for a particular child (use
-// waitpid system call).
+/*
+ ============================================================================
+Name :  Q25.c
+Author : Somya Malgudi
+Description : Write a program to create three child processes. The parent should wait for a particular child (use
+waitpid system call).
+Date: Sep 6, 2023
+============================================================================	
+*/
+
 
 #include<stdio.h>
 #include<unistd.h>

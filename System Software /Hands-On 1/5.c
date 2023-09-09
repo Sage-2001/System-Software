@@ -1,5 +1,12 @@
-/*Write a program to create five new files with infinite loop. Execute the program in the background
-and check the file descriptor table at /proc/pid/fd.*/
+/*
+ ============================================================================
+Name :  Q5.c
+Author : Somya Malgudi
+Description : Write a program to create five new files with infinite loop. Execute the program in the background
+and check the file descriptor table at /proc/pid/fd.
+Date: Aug 4, 2023
+============================================================================	
+*/
 
 #include<stdio.h>
 #include<unistd.h>

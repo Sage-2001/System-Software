@@ -1,6 +1,13 @@
-// 16. Write a program to perform mandatory locking.
-// a. Implement write lock
-// b. Implement read lock
+/*
+ ============================================================================
+Name :  Q16.c
+Author : Somya Malgudi
+Description : Write a program to perform mandatory locking.
+a. Implement write lock
+b. Implement read lock
+Date: Aug 24, 2023
+============================================================================	
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

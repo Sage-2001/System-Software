@@ -1,4 +1,11 @@
-// 27. Write a program to execute ls -Rl by the following system calls
+/*
+ ============================================================================
+Name :  Q27.c
+Author : Somya Malgudi
+Description : Write a program to execute ls -Rl by the following system calls
+Date: Sep 6, 2023
+============================================================================	
+*/
 
 // a. execl
 #include <unistd.h>

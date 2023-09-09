@@ -1,4 +1,11 @@
-// 7. Write a program to copy file1 into file2 ($cp file1 file2).
+/*
+ ============================================================================
+Name :  Q7.c
+Author : Somya Malgudi
+Description : Write a program to copy file1 into file2 ($cp file1 file2).
+Date: Aug 18, 2023
+============================================================================	
+*/
 
 #include<stdio.h>
 #include <sys/types.h>

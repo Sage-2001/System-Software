@@ -1,4 +1,8 @@
-/*Write a program to print the following information about a given file.
+/*
+ ============================================================================
+Name :  Q9.c
+Author : Somya Malgudi
+Description : Write a program to print the following information about a given file.
 a. inode
 b. number of hard links
 c. uid
@@ -8,7 +12,10 @@ f. block size
 g. number of blocks
 h. time of last access
 i. time of last modification
-j. time of last change*/
+j. time of last change
+Date: Aug 23, 2023
+============================================================================	
+*/
 
 #include<stdio.h>
 #include<unistd.h>

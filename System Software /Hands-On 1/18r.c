@@ -1,3 +1,15 @@
+/*
+ ============================================================================
+Name :  Q18.c
+Author : Somya Malgudi
+Description : 18. Write a program to perform Record locking.
+ a. Implement write lock
+ b. Implement read lock
+Create three records in a file. Whenever you access a particular record, first lock it then modify/access
+to avoid race condition.
+Date: Aug 26, 2023
+============================================================================	
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
