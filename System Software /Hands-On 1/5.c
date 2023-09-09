@@ -19,7 +19,7 @@ int main(){
     while (1)
     {
         if(count<5){
-            fd = open("create_file", O_RDWR);
+            fd = creat("create_file", O_RDWR|S_IRUSR| S_IWUSR| S_IRGRP| S_IROTH);
             count++;
             if (fd>=0)
             {

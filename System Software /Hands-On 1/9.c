@@ -38,8 +38,8 @@ int main() {
         printf("File details: \n");
         printf("Inode number: %ld\n", file_details.st_ino);
         printf("Number of hard links: %ld\n", file_details.st_nlink);
-        printf("Owner User ID: %ld\n", file_details.st_uid);
-        printf("Owner Group ID: %ld\n", file_details.st_gid);
+        printf("Owner User ID: %d\n", file_details.st_uid);
+        printf("Owner Group ID: %d\n", file_details.st_gid);
         printf("Size: %ld bytes\n", file_details.st_size);
         printf("Block size: %ld bytes\n", file_details.st_blksize);
         printf("Number of blocks: %ld\n", file_details.st_blocks);
