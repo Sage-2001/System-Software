@@ -63,6 +63,9 @@ int main(){
     if (br == sizeof(struct Record)) {
         printf("Record %d: ID: %d, Name: %s\n", record_num , r1.id, r1.name);
     }
+    else{
+        printf("No record available\n");
+    }
     printf("Enter to exit Critical Section...");
     getchar(); // Wait for Enter key
     getchar();

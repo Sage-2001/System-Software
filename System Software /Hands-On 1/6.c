@@ -10,8 +10,8 @@ Date: Aug 18, 2023
 
 #include<stdio.h>
 #include<unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+#include<sys/types.h>
+#include<sys/stat.h>
 #include<fcntl.h>
 
 int main(){
