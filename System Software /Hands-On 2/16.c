@@ -1,6 +1,11 @@
-// 16. Write a program to send and receive data from parent to child vice versa. Use two way
-// communication.
-
+/*
+============================================================================
+Name : 16.c
+Author : Somya Malgudi
+Description : Write a program to send and receive data from parent to 
+	child vice versa. Use two way communication.
+============================================================================
+*/
 #include<stdio.h>
 #include<unistd.h>
 #include<string.h>

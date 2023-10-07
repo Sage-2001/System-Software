@@ -1,5 +1,11 @@
-// 15. Write a simple program to send some data from parent to the child process.
-
+/*
+============================================================================
+Name : 15.c
+Author : Somya Malgudi
+Description : Write a simple program to send some data from parent 
+	to the child process.
+============================================================================
+*/
 #include<stdio.h>
 #include<unistd.h>
 #include<string.h>
