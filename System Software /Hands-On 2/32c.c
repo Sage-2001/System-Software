@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name : 32_c.c
+Name : 32c.c
 Author : Prashant Jain
 Description : Write a program to implement semaphore to protect 
 	any critical section.

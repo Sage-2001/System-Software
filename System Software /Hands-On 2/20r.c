@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name : 20_r.c
+Name : 20r.c
 Author : Somya Malgudi
 Description : Write two programs so that both can communicate by 
 	FIFO -Use one way communication. Read End of one way communication.

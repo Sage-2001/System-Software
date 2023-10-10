@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name : 32_b.c
+Name : 32b.c
 Author : Somya Malgudi
 Description : Write a program to implement semaphore to protect 
 	any critical section.

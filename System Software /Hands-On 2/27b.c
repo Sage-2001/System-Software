@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name : 27_b.c
+Name : 27b.c
 Author : Somya Malgudi
 Description : Write a program to receive messages from the message queue.
 	b. with IPC_NOWAIT as a flag

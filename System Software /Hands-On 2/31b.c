@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name : 31_b.c
+Name : 31b.c
 Author : Somya Malgudi
 Description : Write a program to create a semaphore and initialize 
 	value to the semaphore.

@@ -1,6 +1,6 @@
 /*
 ============================================================================
-Name : 27_a.c
+Name : 27a.c
 Author : Somya Malgudi
 Description : Write a program to receive messages from the message queue.
 	a. with 0 as a flag
