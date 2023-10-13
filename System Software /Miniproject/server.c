@@ -5,7 +5,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 
-#include "jargans.h"
+#include "./Helpers/jargans.h"
 
 int main(){
     int socketFD = socket(AF_INET, SOCK_STREAM, 0);
@@ -15,47 +15,49 @@ int main(){
         exit(1);
     }
 
-    struct socketaddr_in server_address;
-    client.sin_addr.s_addr = htonl(INADDR_ANY);
-    client.sin_family = AF_INET;
-    client.sin_port = htons(PORT);
+    struct sockaddr_in client_address;
+    client_address.sin_addr.s_addr = htonl(INADDR_ANY);
+    client_address.sin_family = AF_INET;
+    client_address.sin_port = htons(PORT);
 
-    int connectionStat = connect(socketFD, (struct socketaddr *) &server_address,sizeof(server_address));
-    if (connectionStat == -1)
+    int bindStat = bind(socketFD, (struct sockaddr *) &client_address, sizeof(client_address));
+    if (bindStat == -1)
     {
-        perror("socket connection error");
+        perror("failed to bind socket\n");
         exit(1);
     }
-    
-    Welcome;
-    int ch;
-    scanf("%c", &ch);
-    
+    int listenStat = listen(socketFD, 10);
+    if (listenStat == -1)
+    {
+        perror("Failed to listen for incoming request\n");
+        exit(1);
+    }
+
     while (1)
     {
-        char buf[100];
-        switch (ch)
+        int clientSize = (int)sizeof(client_address);
+        int clientconnFD = accept(socketFD, (struct sockaddr *) &client_address, &clientSize);
+        if (clientconnFD == -1)
         {
-        case 1:
-            buf = "admin";
-            write(socketFD, buf,sizeof(buf));
-            break;
-
-        case 2:
-            buf = "faculty";
-            write(socketFD, buf,sizeof(buf));
-            break;
-
-        case 3:
-            buf = "student";
-            write(socketFD, buf,sizeof(buf));
-            break;
-        
-        default:
-            "Invalid Choice";
+            perror("Connection is not accepted");
             exit(1);
-            break;
+        }
+        else
+        {
+            if (!fork())
+            {
+                close(socketFD);
+                //make a function which will call controller
+                //they are divided into 3 parts admin student client they are going to come in controller
+
+                printf("Done successfully");
+            }
+            else
+            {
+                close(clientconnFD);
+            }
         }
     }
+    close(socketFD);
     return 0;
 }

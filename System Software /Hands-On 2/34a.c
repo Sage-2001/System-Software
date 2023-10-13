@@ -40,7 +40,7 @@ int main(){
     while (1)
     {
         printf("Accepting connections: %d\n", getpid());
-		int clientSize;
+		int clientSize = sizeof(client);
 		int clientConnectionFD = accept(socketFD, (struct sockaddr *) &client, &clientSize);
 		if(clientConnectionFD == -1) {
 			perror("Failed to accept the connection\n");

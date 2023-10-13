@@ -5,7 +5,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 
-#include "jargans.h"
+#include "./Helpers/jargans.h"
 
 int main(){
     int socketFD = socket(AF_INET, SOCK_STREAM, 0);
@@ -15,12 +15,12 @@ int main(){
         exit(1);
     }
 
-    struct socketaddr_in server_address;
-    client.sin_addr.s_addr = htonl(INADDR_ANY);
-    client.sin_family = AF_INET;
-    client.sin_port = htons(PORT);
+    struct sockaddr_in server_address;
+    server_address.sin_addr.s_addr = htonl(INADDR_ANY);
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(PORT);
 
-    int connectionStat = connect(socketFD, (struct socketaddr *) &server_address,sizeof(server_address));
+    int connectionStat = connect(socketFD, (struct sockaddr *) &server_address,sizeof(server_address));
     if (connectionStat == -1)
     {
         perror("socket connection error");
@@ -29,27 +29,33 @@ int main(){
 
     Welcome;
     int ch;
-    scanf("%c", &ch);
+    scanf("%d", &ch);
     
     while (1)
     {
-        char buf[100];
         switch (ch)
         {
         case 1:
-            buf = "admin";
-            write(socketFD, buf,sizeof(buf));
-            break;
+            {
+                char buf[] = "admin";
+                write(socketFD, &buf,sizeof(buf));
+                break;
+            }
 
         case 2:
-            buf = "faculty";
-            write(socketFD, buf,sizeof(buf));
-            break;
+            {
+                char buf[] = "faculty";
+                write(socketFD, &buf,sizeof(buf));
+                break;
+            }
+
 
         case 3:
-            buf = "student";
-            write(socketFD, buf,sizeof(buf));
-            break;
+            {
+                char buf[] = "student";
+                write(socketFD, &buf,sizeof(buf));
+                break;
+            }
         
         default:
             "Invalid Choice";
