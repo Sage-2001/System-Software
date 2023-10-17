@@ -1,68 +1,80 @@
-#include<sys/types.h>
-#include<sys/socket.h>
-#include<netinet/ip.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
+#include <stdio.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+#include <string.h>
 
-#include "./Helpers/jargans.h"
+#include "./constantStrings.h"
 
-int main(){
-    int socketFD = socket(AF_INET, SOCK_STREAM, 0);
-    if (socketFD == -1)
-    {
-        perror("failed to create socket\n");
-        exit(1);
-    }
+// Handles all repetitive writing and reading until the disconnection.
+void connectionHandler(int socketFD) {
+    char readBuf[1000];
+    char writeBuf[1000];
+    ssize_t readBytes, writeBytes;
+    char tempBuf[1000];
 
-    struct sockaddr_in server_address;
-    server_address.sin_addr.s_addr = htonl(INADDR_ANY);
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(PORT);
-
-    int connectionStat = connect(socketFD, (struct sockaddr *) &server_address,sizeof(server_address));
-    if (connectionStat == -1)
-    {
-        perror("socket connection error");
-        exit(1);
-    }
-
-    Welcome;
-    int ch;
-    scanf("%d", &ch);
-    
-    while (1)
-    {
-        switch (ch)
-        {
-        case 1:
-            {
-                char buf[] = "admin";
-                write(socketFD, &buf,sizeof(buf));
-                break;
+    do {
+        bzero(readBuf, sizeof(readBuf));
+        bzero(writeBuf, sizeof(writeBuf));
+        readBytes = read(socketFD, readBuf, sizeof(readBuf));
+        if(readBytes == -1)
+            perror("!! Error while reading from connection !!");
+        else if(readBytes == 0)
+            printf("Closing the connection to the server!\n");
+        else {
+            if(strchr(readBuf, '*') != NULL) {
+                strcpy(writeBuf, getpass(LOGIN_PASS_MESSAGE));
+            } else if(strchr(readBuf, '$') != NULL) {
+                strcpy(writeBuf, getpass(readBuf));
+            } else if(strchr(readBuf, '&') != NULL) {
+                printf("%s", WRONG);
+                continue;
+            } else if(strchr(readBuf, '#') != NULL) {
+                printf("%s", readBuf);
+                continue;
+            } else {
+                printf("%s", readBuf);
+                scanf("%[^\n]%*c", writeBuf);
             }
 
-        case 2:
-            {
-                char buf[] = "faculty";
-                write(socketFD, &buf,sizeof(buf));
+            writeBytes = write(socketFD, writeBuf, strlen(writeBuf));
+            if(writeBytes == -1) {
+                perror("!! Error while writing to client socket !!");
+                printf("Closing the connection to the server now!\n");
                 break;
             }
-
-
-        case 3:
-            {
-                char buf[] = "student";
-                write(socketFD, &buf,sizeof(buf));
-                break;
-            }
-        
-        default:
-            "Invalid Choice";
-            exit(1);
-            break;
         }
-    }
+    } while(readBytes > 0);
+
     close(socketFD);
-    return 0;
+}
+
+// Creates the socket and connects to the server
+void main() {
+    int socketFD, connectionStatus;
+    struct sockaddr_in serverAddress;
+
+    socketFD = socket(AF_INET, SOCK_STREAM, 0);
+    if(socketFD == -1) {
+        perror("!! Error while creating server socket !!");
+        _exit(0);
+    }
+
+    serverAddress.sin_port = htons(PORT);
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    connectionStatus = connect(socketFD, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
+    if(connectionStatus == -1) {
+        perror("!! Error while connecting to server !!");
+        close(socketFD);
+        _exit(0);
+    }
+
+    connectionHandler(socketFD);
+
+    close(socketFD);
 }
