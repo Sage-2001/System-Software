@@ -1,63 +1,110 @@
-#include<sys/types.h>
-#include<sys/socket.h>
-#include<netinet/ip.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
+#include <stdio.h>
+#include <errno.h>
 
-#include "./Helpers/jargans.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
 
-int main(){
-    int socketFD = socket(AF_INET, SOCK_STREAM, 0);
-    if (socketFD == -1)
-    {
-        perror("failed to create socket\n");
-        exit(1);
-    }
+#include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
-    struct sockaddr_in client_address;
-    client_address.sin_addr.s_addr = htonl(INADDR_ANY);
-    client_address.sin_family = AF_INET;
-    client_address.sin_port = htons(PORT);
+#include "./constantStrings.h"
+#include "./loginHelper.h"
+#include "./StudentController.h"
+#include "./FacultyController.h"
+#include "./AdminController.h"
 
-    int bindStat = bind(socketFD, (struct sockaddr *) &client_address, sizeof(client_address));
-    if (bindStat == -1)
-    {
-        perror("failed to bind socket\n");
-        exit(1);
-    }
-    int listenStat = listen(socketFD, 10);
-    if (listenStat == -1)
-    {
-        perror("Failed to listen for incoming request\n");
-        exit(1);
-    }
+// Handles the connection for a specific client
+void connectionHandler(int clientConnectionFD) {
+    printf("Client has connected to the server!\n");
 
-    while (1)
-    {
-        int clientSize = (int)sizeof(client_address);
-        int clientconnFD = accept(socketFD, (struct sockaddr *) &client_address, &clientSize);
-        if (clientconnFD == -1)
-        {
-            perror("Connection is not accepted");
-            exit(1);
+    char readBuf[1000], writeBuf[1000];
+    ssize_t readBytes, writeBytes;
+    int userChoice;
+
+    writeBytes = write(clientConnectionFD, HOMEPAGE, strlen(HOMEPAGE));
+    if(writeBytes == -1)
+        perror("!! Error while sending first prompt to the user !!");
+    else {
+        bzero(readBuf, sizeof(readBuf));
+        readBytes = read(clientConnectionFD, readBuf, sizeof(readBuf));
+        if(readBytes == -1)
+            perror(ERROR_READING_FROM_CLIENT);
+        else if(readBytes == 0)
+            printf(NO_DATA_RECEIVED);
+        else {
+            userChoice = atoi(readBuf);
+            switch(userChoice) {
+            case 1:
+                // Student
+                rootStudentController(clientConnectionFD);
+                break;
+            case 2:
+                // Professor
+                rootFacultyController(clientConnectionFD);
+                break;
+            case 3:
+                // Administrator
+                rootAdminController(clientConnectionFD);
+                break;
+            default:
+                // Exit
+                break;
+            }
         }
-        else
-        {
-            if (!fork())
-            {
+    }
+    printf("Terminating connection to client!\n");
+}
+
+void main() {
+    // Creates the socket, binds it, set it to listen mode and then wait for connection acceptance
+    int socketFD, socketBindStatus, socketListenStatus, clientConnectionFD, clientSize;
+    struct sockaddr_in serverAddress, clientAddress;
+
+    socketFD = socket(AF_INET, SOCK_STREAM, 0);
+    if (socketFD == -1) {
+        perror("!! Error while creating server socket !!");
+        _exit(0);
+    }
+
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_port = htons(PORT);
+    serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    socketBindStatus = bind(socketFD, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
+    if(socketBindStatus == -1) {
+        perror("!! Error while binding to server socket !!");
+        close(socketFD);
+        _exit(0);
+    }
+
+    socketListenStatus = listen(socketFD, 100);
+    if(socketListenStatus == -1) {
+        perror("!! Error while listening for connections on the server socket !!");
+        close(socketFD);
+        _exit(0);
+    }
+
+    while(1) {
+        clientSize = (int)sizeof(clientAddress);
+        clientConnectionFD = accept(socketFD, (struct sockaddr *)&clientAddress, &clientSize);
+        if(clientConnectionFD == -1) {
+            perror("!! Error while connecting to client !!");
+        } else {
+            if(!fork()) {
+                // Child connection to handle the client
                 close(socketFD);
-                //make a function which will call controller
-                //they are divided into 3 parts admin student client they are going to come in controller
-
-                printf("Done successfully");
-            }
-            else
-            {
-                close(clientconnFD);
+                connectionHandler(clientConnectionFD);
+                _exit(0);
+            } else {
+                // Parent closes the file descriptor and waits for new connection.
+                close(clientConnectionFD);
             }
         }
     }
+
     close(socketFD);
-    return 0;
 }
