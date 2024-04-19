@@ -1,5 +1,5 @@
-# Academia Portal
-
+# Academia Portal 
+location -> System Software -> Mini-Project
 The **Academia Portal** project is a user-friendly and multifunctional academic management system developed in C, utilizing Linux system calls for tasks like file locking and socket programming. This project provides functionalities for students, faculty, and administrators to manage academic information efficiently.
 
 ## Features
